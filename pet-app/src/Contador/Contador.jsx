@@ -13,7 +13,7 @@ const Contador = ({ value }) => {
     //Aqui estoy ingresandio en el DOM el resultado de la operación anterior, por eso cambia el contador
     document.getElementById("add").innerHTML = count;
   };
-  
+
   return (
     <>
       <h3>Contador</h3>

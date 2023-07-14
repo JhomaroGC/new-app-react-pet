@@ -1,25 +1,30 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
+//CSS propio para este componente
 import "./App.css";
-import Contador from "./Contador/Contador";
+//importo los componentes que quiero mostrar en este componente
+import Navbar from "./Navbar/Navbar";
+// para validar los datos que vienen como parámetros para el componente
 import PropTypes from "prop-types";
 
-const App = ({ name }) => {
-  console.log(name);
-  const petStore = <h1 className="titulo">Pet Store, {name}</h1>;
+//Logica del componente que vamos a renderizar
+const App = () => {
   return (
     <>
-      {petStore}
-      <Contador />
+      <Navbar />
+      <Outlet/>
     </>
   );
 };
 
+//Aqui exporto la función para usar en otros módulos
 export default App;
 
+//Declaración de los proptipes para validar tipos de datos que vienen como parámetros.
 App.propTypes = {
   name: PropTypes.string,
 };
 
 App.defaultProps = {
-  nomnre: "sin-nombre",
+  name: "sin-nombre",
 };

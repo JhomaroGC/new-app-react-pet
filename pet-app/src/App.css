@@ -4,6 +4,11 @@ body {
     font-size: 20px;
 }
 
-.titulo:hover{
+.container {
+    background-color: lightgreen;
+
+}
+
+.navbar:hover{
     color:salmon
 }
