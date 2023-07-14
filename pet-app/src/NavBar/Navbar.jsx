@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import NavItems from "../NavItems/NavItems";
 
 const Navbar = () => {
   const navLinks = [
     { ruta: "/", textoLink: "Home" },
-    { ruta: "contador", textoLink: "contador" },
+    { ruta: "contador", textoLink: "Contador" },
+    { ruta: "inputs", textoLink: "Input" },
   ];
   return (
     <>
@@ -29,17 +31,7 @@ const Navbar = () => {
           </button>
           <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              {/*Función map para recorrer la lista navLinks*/}
-              {navLinks.map((item) => {
-                return (
-                  <li className="nav-item">
-                    <Link className="nav-link" to={item.ruta}>
-                      {item.textoLink}
-                    </Link>
-                  </li>
-                );
-              })}
-              {/*fin de la función map*/}
+              <NavItems navLinks={navLinks} />
             </ul>
             <span class="navbar-text">Contáctanos</span>
           </div>
