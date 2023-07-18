@@ -4,42 +4,17 @@ const app = express();
 const port = 3001;
 const mongoose = require("mongoose");
 
-//importamos los modelos
-const user = require("./models/userModel");
 
 //Creación de la variable de ruta
-const router = express.Router();
+const router = require("./routes/routes");
+
 //Conectando con la base de datos
-mongoose.connect(
-  "mongodb+srv://app-ecommerce:dAArpRZOJTF375Nc@cluster0.b3pvswg.mongodb.net/appecommerce?retryWrites=true&w=majority"
-);
-
-//Metodo GET
-router.get("/", (req, res) => {
-  res.send("Ruta get en funcionamiento... ");
-});
-
-//metodo POST: creacion de un nuevo usuario
-router.post("/createUser", (req, res) => {
-  let newUser = new user({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-  });
-
-  async function findUser(user, newUser, res) {
-    const source = await user.findOne({ email: newUser.email });
-    if (source) {
-      res.send("El usuario ya existe");
-    } else {
-      newUser.save();
-      res.status(200).send(`Usuario creado con Exito: ${newUser}`);
-    }
-  }
-
-  findUser(user, newUser, res);
-});
+mongoose
+  .connect(
+    "mongodb+srv://empresariar:n2B4r75aV8KUp8Mp@cluster0.tz5nnj9.mongodb.net/petStoreDataBase?retryWrites=true&w=majority"
+  )
+  .then(() => console.log("Conexión BD exitosa!"))
+  .catch((err) => console.error(err));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
