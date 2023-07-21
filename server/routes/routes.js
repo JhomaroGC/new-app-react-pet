@@ -2,13 +2,12 @@ const express = require("express");
 const router = express.Router();
 const user = require("../models/userModel");
 const {
-    createUser,
-    editUser,
-    deleteUser,
-    getAllUsers,
-    getOneUser,
-  } = require("../controllers/userControllers");
-
+  createUser,
+  editUser,
+  deleteUser,
+  getAllUsers,
+  getOneUser,
+} = require("../controllers/userControllers");
 
 //Metodo GET
 router.get("/", (req, res) => {
@@ -19,60 +18,15 @@ router.get("/", (req, res) => {
 router.post("/createUser", createUser);
 
 //metodo GET: getAll
-router.get("/getAllUsers", async (req, res) => {
-  const allUsers = await user.find({});
-  res.send(allUsers);
-});
+router.get("/getAllUsers", getAllUsers);
 
 //metodo GET: oneUser
-router.get("/oneUser/:id", async (req, res) => {
-  const idToFind = req.params.id;
-  const oneUser = await user.find({ _id: idToFind });
-  res.send(oneUser);
-});
+router.get("/oneUser/:id", getOneUser);
 
 //metodo DELETE
-router.delete("/deleteUser/:id", (req, res) => {
-  const idToDelete = req.params.id;
-  const deleteUser = async (id) => {
-    try {
-      await user.findByIdAndDelete({ _id: id });
-      res.status(200).send(`Eliminado con exito`);
-    } catch (error) {
-      res.send(error);
-    }
-  };
-
-  deleteUser(idToDelete);
-});
+router.delete("/deleteUser/:id", deleteUser);
 
 //metodo PUT-edicion
-router.put("/editUser/:id", (req, res) => {
-  const idToFind = req.params.id;
-  const { body } = req;
-  //objeto creado para actualizar
-
-  const updateDocument = async (id, body) => {
-    const userToEdit = {
-      firstName: body.firstName,
-      lastName: body.lastName,
-      email: body.email,
-      password: body.password,
-    };
-
-    try {
-      const updatedResult = await user.findByIdAndUpdate(
-        { _id: id },
-        userToEdit
-      );
-      res
-        .status(200)
-        .send(`Usuario: ${userToEdit.firstName}, actualizado con exito`);
-    } catch (error) {
-      res.send(error);
-    }
-  };
-  updateDocument(idToFind, body);
-});
+router.put("/editUser/:id", editUser);
 
 module.exports = router;
